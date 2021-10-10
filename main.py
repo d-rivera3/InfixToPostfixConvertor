@@ -1,16 +1,31 @@
-# This is a sample Python script.
+# main to run program
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from expressionSplitter import expr_splitter    # to split expr strings into list of parts
+from classify import is_which                   # to identify parts and operator levels
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def main():
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    # relative path to infix file (from current directory to file)
+    infix_file = r'infix\infix.txt'
+    convert = open(infix_file)
+
+    # read expression lines and convert
+    for line in convert.readlines():
+        # print(line)
+
+        # split line into parts
+        parts = expr_splitter(line)
+        # print(parts)
+
+        # get what type and precedence of each part
+        is_type, is_pres = is_which(parts)
+
+        # print(is_type)
+        # print(is_pres, end='\n\n')
+
+    # close files
+    convert.close()
+
+# run
+main()
