@@ -11,6 +11,10 @@ def main():
     infix_file = r'infix\infix.txt'
     convert = open(infix_file)
 
+    # relative path to postfix file to output
+    postfix_location = r'postfix\postfix.txt'
+    write_postfix = open(postfix_location, 'w')
+
     # postfix expr list
     postfix_form = []
 
@@ -31,8 +35,25 @@ def main():
         postfix_form = postfix_converter(parts, is_type, is_pres)
         # print(postfix_form, end='\n\n')
 
+        # convert postfix_form list into a string instead
+        postfix_string = ''
+        for part in postfix_form:
+            # remember postfix_converter has ops as [operator, pres_level] and functions as [name, 'func'] in its output
+            if isinstance(part, list):
+                postfix_string += str(part[0]) + ','
+            # otherwise it is a numeric value
+            else:
+                postfix_string += str(part) + ','
+        postfix_string = postfix_string[:-1]  # removes extra comma at the end
+        postfix_string += '\n'  # put a newline at the end
+
+        # write postfix_string into postfix file
+        write_postfix.writelines(postfix_string)
+
     # close files
     convert.close()
+    write_postfix.flush()
+    write_postfix.close()
 
 
 main()  # run main
