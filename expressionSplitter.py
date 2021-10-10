@@ -40,7 +40,7 @@ def len_operator(line):
 
 
 # spilt line into parts
-def spilt(line):
+def expr_splitter(line):
     str_len = len(line)     # expression string
     parts = []  # resulting list of parts
 
